@@ -1,12 +1,10 @@
 
        JSPopupObject  V1.01
 
-       © 2007, James Melanson
+       © 2007, James Melanson, jmelanson1965@gmail.com
        james_melanson@yahoo.ca
 
-       jspopobj_v1_01.zip     SomeDay
 
-        All Rights Reserved.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,10 +15,6 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
     ##############################################################################
