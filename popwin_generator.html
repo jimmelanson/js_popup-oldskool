@@ -1,0 +1,990 @@
+<html><head><title>Jim Melanson - JSPopUpObject Generator</title>
+<!--
+       © 2007, James Melanson
+       james_melanson@yahoo.ca
+
+       jspopupobject_v1_0.zip     2007.01.12
+
+       Distributed under the GNU General Licence.
+
+//-->
+
+<script language="JavaScript" src="jspopupobject.js"></script>
+<script language="JavaScript">
+<!--
+
+var codegenbtn = new jspopup();
+codegenbtn.powerTipCSS('padding:5px;background-color:#87CEFA;color:#00008B;font-weight:bold;border: 3px ridge #00008B;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;');
+
+var help = new jspopup();
+help.powerTipCSS('padding:5px;background-color:#EEE8AA;color:#000000;border: 3px ridge #BDB76B;font-family:verdana,helvetica,sans-serif;font-size:10pt;');
+
+var test = new jspopup();
+
+function createCookie(name,value,days) {
+  if(!days) {
+    days = 365;
+  }
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime()+(days*24*60*60*1000));
+    var expires = "; expires="+date.toGMTString();
+  }
+  document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') {
+      c = c.substring(1,c.length);
+    }
+    if (c.indexOf(nameEQ) == 0) {
+      return c.substring(nameEQ.length,c.length);
+    }
+  }
+  return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+
+var setAllFlag = 0;
+function setPwAll() {
+  if(setAllFlag) {
+    document.popwinpowerTipFrm.pw_scrollbars.checked = false;
+    document.popwinpowerTipFrm.pw_location.checked = false;
+    document.popwinpowerTipFrm.pw_diretories.checked = false;
+    document.popwinpowerTipFrm.pw_status.checked = false;
+    document.popwinpowerTipFrm.pw_menubar.checked = false;
+    document.popwinpowerTipFrm.pw_toolbar.checked = false;
+    document.popwinpowerTipFrm.pw_resizable.checked = false;
+    setAllFlag = 0;
+  } else {
+    document.popwinpowerTipFrm.pw_scrollbars.checked = true;
+    document.popwinpowerTipFrm.pw_location.checked = true;
+    document.popwinpowerTipFrm.pw_diretories.checked = true;
+    document.popwinpowerTipFrm.pw_status.checked = true;
+    document.popwinpowerTipFrm.pw_menubar.checked = true;
+    document.popwinpowerTipFrm.pw_toolbar.checked = true;
+    document.popwinpowerTipFrm.pw_resizable.checked = true;
+    setAllFlag = 1;
+  }
+  return true;
+}
+
+function pwClear() {
+  document.getElementById('pw_urltext').value = 'Your URL or custom content goes here!';
+  document.getElementById('pw_width').value = '';
+  document.getElementById('pw_left').value = '';
+  document.getElementById('Xcenter').checked = false;
+  document.getElementById('pw_height').value = '';
+  document.getElementById('pw_top').value = '';
+  document.getElementById('Ycenter').checked = false;
+  document.getElementById('pw_name').value = 'OptionalWindowName';
+  document.popwinpowerTipFrm.pw_scrollbars.checked = false;
+  document.popwinpowerTipFrm.pw_location.checked = false;
+  document.popwinpowerTipFrm.pw_diretories.checked = false;
+  document.popwinpowerTipFrm.pw_status.checked = false;
+  document.popwinpowerTipFrm.pw_menubar.checked = false;
+  document.popwinpowerTipFrm.pw_toolbar.checked = false;
+  document.popwinpowerTipFrm.pw_resizable.checked = true;
+  document.popwinpowerTipFrm.pw_all.checked = false;
+  document.getElementById('instanceSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  document.getElementById('commonSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  document.getElementById('automatedSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  resetTestObject();
+  return true;
+}
+
+
+function pwGenerate() {
+  if(document.getElementById('pw_urltext').value != '') {
+    document.getElementById('pw_urltext').style.backgroundColor = '#E6E6FA';
+    var pw_urltext = document.getElementById('pw_urltext').value;
+    var isHtml = 0;
+    var assembleArray = new Array();
+    if(pw_urltext.indexOf("\>") >= 0) {
+      assembleArray = pw_urltext.split("\>");
+      pw_urltext = assembleArray.join("&gt;");
+      isHtml = 1;
+    }
+    assembleArray.length = 0;
+    if(pw_urltext.indexOf("\<") >= 0) {
+      assembleArray = pw_urltext.split("\<");
+      pw_urltext = assembleArray.join("&lt;");
+      isHtml = 1;
+    }
+    if(isHtml) {
+      assembleArray.length = 0;
+      if(pw_urltext.indexOf("\\") >= 0) {
+        assembleArray = pw_urltext.split("\\");
+        pw_urltext = assembleArray.join("\\\\");
+        isHtml = 1;
+      }
+      assembleArray.length = 0;
+      if(pw_urltext.indexOf("\/") >= 0) {
+        assembleArray = pw_urltext.split("\/");
+        pw_urltext = assembleArray.join("\\\/");
+        isHtml = 1;
+      }
+      assembleArray.length = 0;
+      if(pw_urltext.indexOf("\'") >= 0) {
+        assembleArray = pw_urltext.split("\'");
+        pw_urltext = assembleArray.join("\\\'");
+        isHtml = 1;
+      }
+    }
+    assembleArray.length = 0;
+    if(document.getElementById('pw_width').value) {
+      if(document.getElementById('pw_height').value) {
+        document.getElementById('pw_width').style.backgroundColor = '#E6E6FA';
+        document.getElementById('pw_height').style.backgroundColor = '#E6E6FA';
+        var pw_name = '';
+        if(document.getElementById('pw_name').value) {
+          pw_name = document.getElementById('pw_name').value;
+        } else {
+          pw_name = 'OptionalWindowName';
+        }
+        var commonCode = '<b>&lt;!-- Pop-Up Window Code &amp; Samples: Put this code inside the &lt;head&gt;&lt;/head&gt; tags of your script --&gt;</b><br>\n';
+        commonCode += '&lt;scr'+'ipt language="JavaS'+'cript" src="jspopupobject.js"&gt;&lt;/scr'+'ipt&gt;<br>\n';
+        commonCode += '&lt;scr'+'ipt language="JavaS'+'cript"&gt;<br>\n';
+        commonCode += '&lt;!--<br>\n';
+        commonCode += 'var win = new jspopup();<br>\n';
+        if(isHtml) {
+          commonCode += 'win.htmlContent(\''+pw_urltext+'\');<br>\n'
+        } else {
+          commonCode += 'win.url(\''+pw_urltext+'\');<br>\n';
+        }
+        if(pw_name) {
+          commonCode += 'win.name(\''+pw_name+'\');<br>\n';
+        }
+        commonCode += 'win.width('+document.getElementById('pw_width').value+');<br>\n';
+        commonCode += 'win.height('+document.getElementById('pw_height').value+');<br>\n';
+        if(document.getElementById('Xcenter').checked == true) {
+          commonCode += 'win.left(\'center\');<br>\n';
+        } else {
+          if(document.getElementById('pw_left').value) {
+            commonCode += 'win.left('+document.getElementById('pw_left').value+');<br>\n';
+          }
+        }
+        if(document.getElementById('Ycenter').checked == true) {
+          commonCode += 'win.top(\'center\');<br>\n';
+        } else {
+          if(document.getElementById('pw_top').value) {
+            commonCode += 'win.top('+document.getElementById('pw_top').value+');<br>\n';
+          }
+        }
+        if(document.popwinpowerTipFrm.pw_scrollbars.checked == true) {
+          commonCode += 'win.scrollbars();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_location.checked == true) {
+          commonCode += 'win.location();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_diretories.checked == true) {
+          commonCode += 'win.directories();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_status.checked == true) {
+          commonCode += 'win.status();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_menubar.checked == true) {
+          commonCode += 'win.menubar();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_toolbar.checked == true) {
+          commonCode += 'win.toolbar();<br>\n';
+        }
+        if(document.popwinpowerTipFrm.pw_resizable.checked == true) {
+          commonCode += 'win.resizable();<br>\n';
+        }
+        commonCode += '\/\/--&gt;\n<br>&lt;/scr'+'ipt&gt;<br><br>\n';
+        commonCode += '<b>&lt;!-- Sample code to launch Pop-Up Window --&gt;</b><br><br>\n';
+        commonCode += 'win.popwin(); //Use this in your custom function<br><br>\n';
+        commonCode += '&lt;a onclick="win.popwin()"&gt;Some Text Here&lt;/a&gt;<br><br>\n';
+        commonCode += '&lt;img src="somepic.jpg" onclick="win.popwin()"&gt;\n';
+        document.getElementById('commonSpecWindowArea').innerHTML = commonCode;
+        commonCode = '';
+
+        var instanceCode = '<b>&lt;!-- Pop-Up Window Code &amp; Samples: Put this line inside the &lt;head&gt;&lt;/head&gt; tags of your script --&gt;</b><br>\n';
+        instanceCode += '&lt;scr'+'ipt language="JavaS'+'cript" src="jspopupobject.js"&gt;&lt;/scr'+'ipt&gt;<br>\n';
+        instanceCode += '&lt;scr'+'ipt language="JavaS'+'cript"&gt;<br>\n';
+        instanceCode += '&lt;!--<br>\n';
+        instanceCode += 'var win = new jspopup();<br>\n';
+        instanceCode += '\/\/--&gt;\n<br>&lt;/scr'+'ipt&gt;<br><br>\n';
+        instanceCode += '<b>&lt;!-- Sample code to launch Pop-Up Window --&gt;</b><br><br>\n';
+        var inLine = '';
+        inLine += 'win.popwin(\''+pw_urltext+'\',<br>\''+pw_name+'\',';
+        inLine += document.getElementById('pw_width').value+',';
+        inLine += document.getElementById('pw_height').value+',';
+        if(document.getElementById('Xcenter').checked == true) {
+          inLine += '\'center'+'\',';
+        } else {
+
+          if(document.getElementById('pw_left').value) {
+            inLine += document.getElementById('pw_left').value+',';
+          } else {
+            inLine += '\'default\',';
+          }
+        }
+        if(document.getElementById('Ycenter').checked == true) {
+          inLine += '\'center\'';
+        } else {
+
+          if(document.getElementById('pw_top').value) {
+            inLine += document.getElementById('pw_top').value;
+
+          } else {
+            inLine += '\'default\'';
+          }
+
+        }
+        if(document.popwinpowerTipFrm.pw_all.checked == true) {
+            inLine += ',1,1,1,1,1,1,1';
+        } else {
+          if(document.popwinpowerTipFrm.pw_scrollbars.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_location.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_diretories.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_status.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_menubar.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_toolbar.checked == false) {
+            inLine += ',0';
+          } else {
+            inLine += ',1';
+          }
+          if(document.popwinpowerTipFrm.pw_resizable.checked == true) {
+            inLine += ',1';
+          } else {
+            inLine += ',0';
+          }
+        }
+        inLine += ')';
+        instanceCode += inLine+'; //Use this in your custom function<br><br>\n';
+        if(!isHtml) {
+          instanceCode += '&lt;a href="#" onclick="'+inLine+'"&gt;Some Text Here&lt;/a&gt;<br><br>\n';
+          instanceCode += '&lt;img src="somepic.jpg" onclick="'+inLine+'"&gt;\n';
+        }
+        document.getElementById('instanceSpecWindowArea').innerHTML = instanceCode;
+        instanceCode = '';
+
+        var automatedCode = '<b>&lt;!-- Pop-Up Window Code &amp; Samples: Put this line inside the &lt;head&gt;&lt;/head&gt; tags of your script --&gt;</b><br>\n';
+        automatedCode += '&lt;scr'+'ipt language="JavaS'+'cript" src="jspopupobject.js"&gt;&lt;/scr'+'ipt&gt;<br>\n';
+        automatedCode += '&lt;scr'+'ipt language="JavaS'+'cript"&gt;<br>\n';
+        automatedCode += '&lt;!--<br>\n';
+        automatedCode += 'var win = new jspopup();<br>\n';
+        automatedCode += '\/\/--&gt;\n<br>&lt;/scr'+'ipt&gt;<br><br>\n';
+        automatedCode += '<b>&lt;!-- Sample code to launch Pop-Up Window --&gt;</b><br><br>\n';
+        automatedCode += 'win.popwin(\''+pw_urltext+'\'';
+        if(pw_name) {
+          automatedCode += ',\''+pw_name+'\'';
+        }
+        automatedCode += '); //Use this for your function call<br><br>\n';
+        if(!isHtml) {
+          automatedCode += '&lt;a href="#" onclick="win.popwin(\''+pw_urltext+'\')"&gt;<br>Some Text Here&lt;/a&gt;<br><br>\n';
+          automatedCode += '&lt;img src="somepic.jpg" onclick="win.popwin(\''+pw_urltext+'\')"&gt;\n';
+        }
+        document.getElementById('automatedSpecWindowArea').innerHTML = automatedCode;
+        automatedCode = '';
+      } else {
+        window.alert('You forgot to specify a height for the window. This is a required field.');
+        document.getElementById('pw_height').style.backgroundColor = '#FFFFE0';
+      }
+    } else {
+      window.alert('You forgot to specify a width for the window. This is a required field.');
+      document.getElementById('pw_width').style.backgroundColor = '#FFFFE0';
+    }
+  } else {
+    window.alert('You forgot to specify a URL or Custom HTML Content. This is a required field.');
+    document.getElementById('pw_urltext').style.backgroundColor = '#FFFFE0';
+  }
+}
+
+function pwTest() {
+  if(document.getElementById('pw_urltext').value != '') {
+    document.getElementById('pw_urltext').style.backgroundColor = '#E6E6FA';
+    var pw_urltext = document.getElementById('pw_urltext').value;
+    var assembleArray = new Array();
+    if(pw_urltext.indexOf("\>") >= 0) {
+      assembleArray = pw_urltext.split("\>");
+      pw_urltext = assembleArray.join("&gt;");
+    }
+    assembleArray.length = 0;
+    if(pw_urltext.indexOf("\<") >= 0) {
+      assembleArray = pw_urltext.split("\<");
+      pw_urltext = assembleArray.join("&lt;");
+    }
+    assembleArray.length = 0;
+    if(pw_urltext.indexOf("\'") >= 0) {
+      assembleArray = pw_urltext.split("\'");
+      pw_urltext = assembleArray.join("\\\'");
+    }
+    assembleArray.length = 0;
+    if(document.getElementById('pw_width').value) {
+      if(document.getElementById('pw_height').value) {
+        document.getElementById('pw_width').style.backgroundColor = '#E6E6FA';
+        document.getElementById('pw_height').style.backgroundColor = '#E6E6FA';
+        var scrollbarsV = 'no';
+        var locationV = 'no';
+        var directoriesV = 'no';
+        var statusV = 'no';
+        var menubarV = 'no';
+        var toolbarV = 'no';
+        var resizableV = 'no';
+        if(document.popwinpowerTipFrm.pw_all.checked == true) {
+          var scrollbarsV = 'yes';
+          var locationV = 'yes';
+          var directoriesV = 'yes';
+          var statusV = 'yes';
+          var menubarV = 'yes';
+          var toolbarV = 'yes';
+          var resizableV = 'yes';
+        } else {
+          if(document.popwinpowerTipFrm.pw_scrollbars.checked == true) {
+            var scrollbarsV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_location.checked == true) {
+            var locationV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_diretories.checked == true) {
+            var directoriesV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_status.checked == true) {
+            var statusV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_menubar.checked == true) {
+            var menubarV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_toolbar.checked == true) {
+            var toolbarV = 'yes';
+          }
+          if(document.popwinpowerTipFrm.pw_resizable.checked == true) {
+            var resizableV = 'yes';
+          }
+        }
+        var left;
+        if(document.getElementById('pw_left').value == 'center') {
+          left = 'center';
+        } else {
+          left = document.getElementById('pw_left').value;
+        }
+        var top;
+        if(document.getElementById('pw_top').value == 'center') {
+          top = 'center';
+        } else {
+          top = document.getElementById('pw_top').value;
+        }
+        test.popwin(document.getElementById('pw_urltext').value,'OptionalWindowName',document.getElementById('pw_width').value,document.getElementById('pw_height').value,left,top,scrollbarsV,locationV,directoriesV,statusV,menubarV,toolbarV,resizableV);
+        return false;
+      } else {
+        window.alert('You forgot to specify a height for the window. This is a required field.');
+        document.getElementById('pw_height').style.backgroundColor = '#FFFFE0';
+      }
+    } else {
+      window.alert('You forgot to specify a width for the window. This is a required field.');
+      document.getElementById('pw_width').style.backgroundColor = '#FFFFE0';
+    }
+  } else {
+    window.alert('You forgot to specify a URL or Custom HTML Content. This is a required field.');
+    document.getElementById('pw_urltext').style.backgroundColor = '#FFFFE0';
+  }
+}
+
+
+
+
+function ptClear() {
+  document.getElementById('pt_text').value = 'Your custom content goes here!';
+  document.getElementById('pt_width').value = '';
+  document.getElementById('pt_height').value = '';
+  document.getElementById('pt_css').value = '';
+  document.getElementById('instanceSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  document.getElementById('commonSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  document.getElementById('automatedSpecWindowArea').innerHTML = 'Click The Generate Code Button Above';
+  resetTestObject();
+  return true;
+}
+
+
+function ptGenerate() {
+  var pt_css = '';
+  if(document.getElementById('pt_css').value != '') {
+    pt_css = document.getElementById('pt_css').value;
+  }
+  if(document.getElementById('pt_text').value != '') {
+    var pt_text = document.getElementById('pt_text').value;
+    var assembleArray = new Array();
+    if(pt_text.indexOf("\>") >= 0) {
+      assembleArray = pt_text.split("\>");
+      pt_text = assembleArray.join("&gt;");
+    }
+    assembleArray.length = 0;
+    if(pt_text.indexOf("\<") >= 0) {
+      assembleArray = pt_text.split("\<");
+      pt_text = assembleArray.join("&lt;");
+    }
+    assembleArray.length = 0;
+    if(pt_text.indexOf("\'") >= 0) {
+      assembleArray = pt_text.split("\'");
+      pt_text = assembleArray.join("\\\'");
+    }
+    assembleArray.length = 0;
+  } else {
+    pt_text = 'YOUR CUSTOM TEXT OR HTML GOES HERE';
+  }
+  if(document.getElementById('pt_width').value) {
+    if(document.getElementById('pt_height').value) {
+      if(!document.getElementById('pt_count').value) {
+        document.getElementById('pt_count').value = '0';
+      }
+      document.getElementById('pt_width').style.backgroundColor = '#E6E6FA';
+      document.getElementById('pt_height').style.backgroundColor = '#E6E6FA';
+      var commonCode = 'powerTip Code &amp; Samples...<br><br>\n';
+      commonCode += '<b>&lt;!-- Put this code inside the &lt;head&gt;&lt;/head&gt; tags of your script --&gt;</b><br>\n';
+      commonCode += '&lt;scr'+'ipt language="JavaS'+'cript" src="jspopupobject.js"&gt;&lt;/scr'+'ipt&gt;<br>\n';
+      commonCode += '&lt;scr'+'ipt language="JavaS'+'cript"&gt;<br>\n';
+      commonCode += '&lt;!--<br>\n';
+      commonCode += 'var pt = new jspopup();<br>\n';
+      if(pt_css != '') {
+        commonCode += 'pt.powerTipCSS(\''+pt_css+'\');<br>\n';
+      }
+      commonCode += '\/\/--&gt;\n<br>&lt;/scr'+'ipt&gt;<br><br>\n';
+      commonCode += '<b>&lt;!-- Sample code to launch powerTip --&gt;</b><br><br>\n';
+      commonCode += 'pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+'); //Use this in your custom function<br><br>\n';
+      commonCode += '&lt;a onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+')"&gt;Some Text Here&lt;/a&gt;<br><br>\n';
+      commonCode += '&lt;img src="somepic.jpg" onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+')"&gt;\n';
+      document.getElementById('commonSpecWindowArea').innerHTML = commonCode;
+      commonCode = '';
+      var instanceCode = 'powerTip Code &amp; Samples...<br><br>\n';
+      instanceCode += '<b>&lt;!-- Put this line inside the &lt;head&gt;&lt;/head&gt; tags of your script --&gt;</b><br>\n';
+      instanceCode += '&lt;scr'+'ipt language="JavaS'+'cript" src="jspopupobject.js"&gt;&lt;/scr'+'ipt&gt;<br>\n';
+      instanceCode += '&lt;scr'+'ipt language="JavaS'+'cript"&gt;<br>\n';
+      instanceCode += '&lt;!--<br>\n';
+      instanceCode += 'var pt = new jspopup();<br>\n';
+      instanceCode += '\/\/--&gt;\n<br>&lt;/scr'+'ipt&gt;<br><br>\n';
+      instanceCode += '<b>&lt;!-- Sample code to launch powerTip --&gt;</b><br><br>\n';
+      if(pt_css != '') {
+        instanceCode += 'pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+',\''+pt_css+'\'); //Use this in your custom function &amp; <a href"#" onclick="hepme(event,\'ptf\')" style="cursor:hand;font-weight:bold;text-decoration:underline;">Click Here For Info</a><br><br>\n';
+        instanceCode += '&lt;a onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+',\''+pt_css+'\')"&gt;Some Text Here&lt;/a&gt;<br><br>\n';
+        instanceCode += '&lt;img src="somepic.jpg" onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+',\''+pt_css+'\')"&gt;\n';
+      } else {
+        instanceCode += 'pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+'); //Use this in your custom function &amp; <a href"#" onclick="hepme(event,\'ptf\')" style="cursor:hand;font-weight:bold;text-decoration:underline;">Click Here For Info</a><br><br>\n';
+        instanceCode += '&lt;a onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+')"&gt;Some Text Here&lt;/a&gt;<br><br>\n';
+        instanceCode += '&lt;img src="somepic.jpg" onmouseover="pt.powerTip(this,event,\''+pt_text+'\','+document.getElementById('pt_width').value+','+document.getElementById('pt_height').value+','+document.getElementById('pt_count').value+')"&gt;\n';
+      }
+      document.getElementById('instanceSpecWindowArea').innerHTML = instanceCode;
+      instanceCode = '';
+    } else {
+      window.alert('You forgot to specify a height for the powerTip. This is a required field.');
+      document.getElementById('pt_height').style.backgroundColor = '#FFFFE0';
+    }
+  } else {
+    window.alert('You forgot to specify a width for the powerTip. This is a required field.');
+    document.getElementById('pt_width').style.backgroundColor = '#FFFFE0';
+  }
+}
+
+function ptTest(e) {
+  if(document.getElementById('pt_width').value) {
+    if(document.getElementById('pt_height').value) {
+      var pt_text = document.getElementById('pt_text').value;
+      if(!pt_text) {
+        pt_text = 'YOUR CONTENT GOES HERE!';
+      }
+      if(document.getElementById('pt_css').value) {
+        test.powerTip(this,e,pt_text,document.getElementById('pt_width').value,document.getElementById('pt_height').value,0,document.getElementById('pt_css').value);
+      } else {
+        test.powerTip(this,e,pt_text,document.getElementById('pt_width').value,document.getElementById('pt_height').value,0);
+      }
+    } else {
+      window.alert('You forgot to specify a height for the powerTip. This is a required field.');
+      document.getElementById('pt_height').style.backgroundColor = '#FFFFE0';
+    }
+  } else {
+    window.alert('You forgot to specify a width for the powerTip. This is a required field.');
+    document.getElementById('pt_width').style.backgroundColor = '#FFFFE0';
+  }
+}
+
+function resetTestObject() {
+  test.windowOffsetX = 0;
+  test.windowOffsetY = 0;
+  test.windowCounter = 0;
+  test.windowIteration = 0;
+  test.ptcss = '';
+  test.setUrl = '';
+  test.setName = '';
+  test.setWidth = '';
+  test.setHeight = '';
+  test.setLeft = '';
+  test.setTop = '';
+  test.setCenter = 0;
+  test.setScrollbars = 0;
+  test.setLocation = 0;
+  test.setDirectories = 0;
+  test.setStatus = 0;
+  test.setMenubar = 0;
+  test.setToolbar = 0;
+  test.setResizeable = 1;
+}
+
+function hepme(e,marker) {
+  var useWidth = 100;
+  var useHeight = 100;
+  var hepText = '';
+  if(marker == 'ptf') {
+    hepText = '<b>powerTip in a function call:</b><hr>';
+    hepText += 'powerTip relies on the \"this\" and the \"event\" keywords.<br>';
+    hepText += 'While it can still interpolate the \"this\" reference,<br>';
+    hepText += 'using powerTip in a function still requires a reference<br>';
+    hepText += 'to the triggering event. SOOO, make SURE your function<br>';
+    hepText += 'contains the keyword "event" as one of it\'s arguments.<br>';
+    hepText += 'You can then reference it like this:<br><br>';
+    hepText += '<pre>function yourStuff(yourarg,yourarg2,e) \{<br>';
+    hepText += '  ...your processing code...<br>';
+    hepText += '  objHandle.powerTip(this,e,\'Your Message\',100,40,0);<br>';
+    hepText += '\}</pre><br>You will note the argument "e" now refers to<br>';
+    hepText += 'the \"event\" reference.';
+    useWidth = 430;
+    useHeight = 300;
+  }
+  else if(marker == 'top') {
+    hepText = '<b>Setting the Top Position:</b><hr>';
+    hepText += 'You can set a specific integer value<br>';
+    hepText += 'representing the distance from the<br>';
+    hepText += 'top of the screen to the top of the<br>';
+    hepText += 'new window. You can also check the<br>';
+    hepText += 'box at the side to specify the<br>';
+    hepText += 'keyword \"center\". If you leave it<br>';
+    hepText += 'blank, this utility will add the<br>';
+    hepText += 'legal keyword \"default\".<br><br>';
+    hepText += 'Remember that Opera will not allow<br>';
+    hepText += 'the new window to cover the MDI.';
+    useWidth = 290;
+    useHeight = 240;
+  }
+  else if(marker == 'left') {
+    hepText = '<b>Setting the Left Position:</b><hr>';
+    hepText += 'You can set a specific integer value<br>';
+    hepText += 'representing the distance from the<br>';
+    hepText += 'left side of the screen to the left<br>';
+    hepText += 'side of the new window. You can also<br>';
+    hepText += 'check the box at the side to specify<br>';
+    hepText += 'the keyword \"center\". If you leave<br>';
+    hepText += 'it blank, this utility will add the<br>';
+    hepText += 'legal keyword \"default\".<br>';
+    useWidth = 290;
+    useHeight = 200;
+  }
+  else if(marker == 'htwdth') {
+    hepText = '<b>Setting the Width & Height:</b><hr>';
+    hepText += 'The Width &amp; Height are mandatory for<br>';
+    hepText += 'this generator. However, when you copy &amp;<br>';
+    hepText += 'paste the code in your web page, you can<br>';
+    hepText += 'set this Width and Height to an empty value<br>';
+    hepText += 'to have the library set these to 1/2 screen<br>';
+    hepText += 'size values.<br><br>';
+    hepText += 'An empty value is not blank, it is two<br>';
+    hepText += 'quotation marks with nothing between them,<br>';
+    hepText += 'not even a space, like this:';
+    hepText += '<pre>objHandle.popwin(\'page.html\',\'name\',\'\',\'\',100,100);</pre>';
+    hepText += '<i>The values 100 refer to Top &amp; Left</i><br><br>';
+    hepText += '<b>Security Warning:</b> IE and NN will not allow<br>';
+    hepText += 'a window to open less than 100 x 100 px.<br>';
+    useWidth = 420;
+    useHeight = 320;
+  }
+  else if(marker == 'winname') {
+    hepText = '<b>Window Name:</b> <i>(Optional)</i><hr>';
+    hepText += 'This is optional, it\'s only really needed if<br>';
+    hepText += 'you plan on calling the window from your own<br>';
+    hepText += 'code. If you leave it blank, the library will<br>';
+    hepText += 'assign it\'s own name.<br>';
+    useWidth = 330;
+    useHeight = 150;
+  }
+  else if(marker == 'scrollbars') {
+    hepText = '<b>Scrollbars:</b> <hr>';
+    hepText += 'Scrollbars setting works in all<br>';
+    hepText += 'browsers. In Opera the page will<br>';
+    hepText += 'still scroll if the use has a<br>';
+    hepText += 'wheel on their mouse.<br>';
+    var useWidth = 280;
+    var useHeight = 130;
+  }
+  else if(marker == 'location') {
+    hepText = '<b>Location:</b> (URL Field) <hr>';
+    hepText += 'Works in IE, Firefox and NN. In Opera<br>';
+    hepText += 'it causes both the Location field<br>';
+    hepText += 'and the Toolbar to appear but ONLY<br>';
+    hepText += 'if the Pop-Up Window is >= 400 px<br>';
+    hepText += 'wide.<br>';
+    var useWidth = 300;
+    var useHeight = 150;
+  }
+  else if(marker == 'directories') {
+    hepText = '<b>Directories:</b> <hr>';
+    hepText += 'At present, only applicable to NN &amp; Firefox.';
+    var useWidth = 340;
+    var useHeight = 60;
+  }
+  else if(marker == 'status') {
+    hepText = '<b>Status Bar:</b> <hr>';
+    hepText += 'This setting works in IE and NN. In Firefox<br>';
+    hepText += 'a status bar always appears with the window.<br><br>';
+    hepText += 'In Opera and NN V.8+, browsers with the MDI,<br>';
+    hepText += 'the MDI has a status bar so the Pop-Up window<br>';
+    hepText += 'never has one of it\'s own.<br>';
+    var useWidth = 340;
+    var useHeight = 180;
+  }
+  else if(marker == 'menubar') {
+    hepText = '<b>Menu Bar:</b> <hr>';
+    hepText += 'Works in IE, Firefox and NN.<br><br>';
+    hepText += 'In Opera and NN V.8+, browsers with the MDI,<br>';
+    hepText += 'the MDI has a menu bar so the Pop-Up window<br>';
+    hepText += 'never has one of it\'s own.<br>';
+    var useWidth = 340;
+    var useHeight = 160;
+  }
+  else if(marker == 'toolbar') {
+    hepText = '<b>Tool Bar:</b> <hr>';
+    hepText += 'Works in IE, Firefox and NN. Has no<br>';
+    hepText += 'effect in Opera because the Toolbar<br>';
+    hepText += 'is tied to the Location setting.<br>';
+    var useWidth = 260;
+    var useHeight = 120;
+  }
+  else if(marker == 'resizable') {
+    hepText = '<b>Resizable:</b> <hr>';
+    hepText += 'Works in IE, NN and Firefox.<br>';
+    hepText += 'Opera is always resizable.<br>';
+    var useWidth = 220;
+    var useHeight = 90;
+  }
+  else if(marker == 'allSettings') {
+    hepText = '<b>Turn On All Settings:</b><hr>';
+    hepText += 'Check this box to pre-select all the<br>';
+    hepText += 'other settings checkboxes. Uncheck it<br>';
+    hepText += 'to clear all the other settings<br>';
+    hepText += 'checkboxes.<br>';
+    var useWidth = 300;
+    var useHeight = 150;
+  }
+  else if(marker == 'htwdthpt') {
+    hepText = '<b>Setting the Width & Height:</b><hr>';
+    hepText += 'The Width &amp; Height are mandatory.<br>';
+    useWidth = 280;
+    useHeight = 80;
+  }
+  else if(marker == 'customcss') {
+    hepText = '<b>powerTip Custom CSS:</b><hr>';
+    hepText += 'You can specify a custom CSS string that<br>';
+    hepText += 'will be applied to this pop-up. You can<br>';
+    hepText += 'also use the objHandle.powerTipCSS()<br>';
+    hepText += 'method to apply it to all of the<br>';
+    hepText += 'powerTips on the page. If you do this,<br>';
+    hepText += 'then CSS strings applied in-line will<br>';
+    hepText += 'over-ride the global setting for that<br>';
+    hepText += 'individual power tip.<br>';
+    useWidth = 310;
+    useHeight = 200;
+  }
+  else if(marker == 'showcount') {
+    hepText = '<b>Show This Many Times:</b><hr>';
+    hepText += 'If you want your powerTip every time the<br>';
+    hepText += 'specified trigger occurs (onmouseover,<br>';
+    hepText += 'onclick, etc.), set this value to zero.<br><br>';
+    hepText += 'If you want to specify a maximum number<br>';
+    hepText += 'of times it will display during this<br>';
+    hepText += 'instance of the page, set an integer value.<br>';
+    useWidth = 310;
+    useHeight = 170;
+  }
+  if(hepText) {
+    if(navigator.appName.indexOf('Microsoft') < 0) {
+      hepText = '<div id=\"ptclose\" style=\"position:absolute;left:'+(useWidth - 50)+'px;top:3px;color:#808000;font-family:verdana,sans-serif;font-size:8pt;\" onclick=\"document.getElementById(help.nodalId).style.display=\'none\';return false;\">[Close]</div>' + hepText;
+    }
+    help.powerTip(this,e,hepText,useWidth,useHeight,0);
+  }
+  return false;
+}
+
+//-->
+</script>
+<style type="text/css">
+<!--
+.btnup {
+  background-color: #87CEFA;
+  color: #00008B;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+.btnover {
+  background-color: #FFFCAD;
+  color: #FF0000;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+.btndn {
+  background-color: #FF0000;
+  color: #FFFCAD;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+//-->
+</style>
+</head>
+<body bgcolor="#FFFFFF">
+
+<div id="titleDivtop" style="position:absolute;left:65px;top:10px;font-family:tahoma,verdana,sans-serif;font-size:36px;font-weight:bold;z-index:2;color:#283CDD;">Pop-Up Window/powerTip Generator</div>
+<div id="titleDivbottom" style="position:absolute;left:67px;top:8px;font-family:tahoma,verdana,sans-serif;font-size:36px;font-weight:bold;z-index:1;color:#D6D6D6;">Pop-Up Window/powerTip Generator</div>
+<form name="popwinpowerTipFrm">
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="popWinMaker" style="position:absolute;left:30px;top:70px;width:320px;height:350px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;" onclick="document.getElementById(\'instructionsPW\').style.display=\'block\';document.getElementById(\'instructionsPT\').style.display=\'none\';document.getElementById(\'automatedSpecWindow\').style.display=\'block\';">\n');
+  } else {
+    document.write('<div id="popWinMaker" style="position:absolute;left:30px;top:70px;width:320px;height:320px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;" onclick="document.getElementById(\'instructionsPW\').style.display=\'block\';document.getElementById(\'instructionsPT\').style.display=\'none\';document.getElementById(\'automatedSpecWindow\').style.display=\'block\';">\n');
+  }
+} else {
+  document.write('<div id="popWinMaker" style="position:absolute;left:30px;top:70px;width:320px;height:375px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;" onclick="document.getElementById(\'instructionsPW\').style.display=\'block\';document.getElementById(\'instructionsPT\').style.display=\'none\';document.getElementById(\'automatedSpecWindow\').style.display=\'block\';">\n');
+}
+//-->
+</script>
+<center>
+<table border="0" cellspacing="0" cellpadding="2" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;color:#FFFFFF;">
+  <tr>
+   <td colspan="4" align="center">
+     <b>URL or Custom HTML Content</b><br>
+     <textarea name="pw_urltext" id="pw_urltext" cols="45" rows="5" onclick="if(this.value=='Your URL or custom content goes here!') {this.value=''}" style="background-color:#E6E6FA;color:#00008B;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Your URL or custom content goes here!</textarea>
+    </td>
+  </tr>
+  <tr><td colspan="4" style="height:5px;font-size:1px;">&nbsp;</td></tr>
+  <tr>
+    <td><a onclick="hepme(event,'htwdth');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Width:</a></td><td><input type="text" name="pw_width" id="pw_width" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;"></td>
+    <td align="right"><a onclick="hepme(event,'left');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Left:</a></td><td><input type="text" name="pw_left" id="pw_left" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;">&nbsp;&nbsp;<input type="checkbox" name="Xcenter" id="Xcenter" value="1" style="background-color:#00008B;color:#E6E6FA;" onClick="if(document.getElementById('pw_left').value=='center') {document.getElementById('pw_left').value='';} else {document.getElementById('pw_left').value='center';}"></td>
+  </tr>
+  
+  <tr>
+    <td><a onclick="hepme(event,'htwdth');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Height:</a></td><td><input type="text" name="pw_height" id="pw_height" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;"></td>
+    <td align="right"><a onclick="hepme(event,'top');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Top:</a></td><td><input type="text" name="pw_top" id="pw_top" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;">&nbsp;&nbsp;<input type="checkbox" name="Ycenter" id="Ycenter" value="1" style="background-color:#00008B;color:#E6E6FA;" onClick="if(document.getElementById('pw_top').value=='center') {document.getElementById('pw_top').value='';} else {document.getElementById('pw_top').value='center';}"></td>
+  </tr>
+  <tr><td colspan="4" style="height:5px;font-size:1px;">&nbsp;</td></tr>
+  <tr>
+    <td colspan="2" valign="center">
+      <input type="checkbox" name="pw_scrollbars" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'scrollbars');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Scrollbars</a><br>
+      <input type="checkbox" name="pw_location" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'location');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Location</a><br>
+      <input type="checkbox" name="pw_diretories" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'directories');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Directories</a><br>
+      <input type="checkbox" name="pw_status" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'status');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Status</a><br>
+      <input type="checkbox" name="pw_menubar" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'menubar');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Menubar</a><br>
+      <input type="checkbox" name="pw_toolbar" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'toolbar');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Toolbar</a><br>
+      <input type="checkbox" name="pw_resizable" value="1" style="background-color:#00008B;color:#E6E6FA;">&nbsp;<a onclick="hepme(event,'resizable');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Resizable</a><br>
+      <input type="checkbox" name="pw_all" value="1" style="background-color:#00008B;color:#E6E6FA;" onClick="setPwAll()">&nbsp;<a onclick="hepme(event,'allSettings');" style="cursor:hand;text-decoration:underline;color:#FFFF00;font-weight:bold;">Set All</a>
+    </td>
+    <td colspan="2" align="center">
+      <a onclick="hepme(event,'winname');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Name:</a> <input type="text" name="pw_name" id="pw_name" value="OptionalWindowName" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:125px;text-align:center;" onclick="if(this.value=='OptionalWindowName') {this.value='';}">
+      <font style="font-size:5px;"><br><br><br></font>
+      <input type="button" name="pwbtngen" id="pwbtngen" value="Generate Code" onmouseover="this.className='btnover';codegenbtn.powerTip(this,event,'Code will appear in the code area below',200,35,1);" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="pwGenerate();">
+      <font style="font-size:5px;"><br></font>
+      <input type="button" name="pwbtntest" id="pwbtntest" value="Preview Window" onmouseover="this.className='btnover';" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="pwTest();">
+      <font style="font-size:5px;"><br></font>
+      <input type="button" name="pwbtnclear" id="pwbtnclear" value="Reset Params" onmouseover="this.className='btnover';" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="pwClear();">
+    </td>
+  </tr>
+</table>
+</center>
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="powerTipMaker" style="position:absolute;left:405px;top:70px;width:320px;height:350px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;" onclick="document.getElementById(\'instructionsPW\').style.display=\'none\';document.getElementById(\'instructionsPT\').style.display=\'block\';document.getElementById(\'automatedSpecWindow\').style.display=\'none\';">\n');
+  } else {
+    document.write('<div id="powerTipMaker" style="position:absolute;left:405px;top:70px;width:320px;height:320px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;" onclick="document.getElementById(\'instructionsPW\').style.display=\'none\';document.getElementById(\'instructionsPT\').style.display=\'block\';document.getElementById(\'automatedSpecWindow\').style.display=\'none\';">\n');
+  }
+} else {
+  document.write('<div id="powerTipMaker" style="position:absolute;left:385px;top:70px;width:320px;height:375px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;" onclick="document.getElementById(\'instructionsPW\').style.display=\'none\';document.getElementById(\'instructionsPT\').style.display=\'block\';document.getElementById(\'automatedSpecWindow\').style.display=\'none\';">\n');
+}
+//-->
+</script>
+  <center><b>HTML/Text Contents</b></center>
+  <center><textarea name="pt_text" id="pt_text" cols="45" rows="6" onclick="if(this.value=='Your custom content goes here!') {this.value=''}" style="background-color:#E6E6FA;color:#00008B;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Your custom content goes here!</textarea></center>
+  <br>
+  <center>
+    <a onclick="hepme(event,'htwdthpt');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Width:</a>&nbsp;&nbsp;<input type="text" name="pt_width" id="pt_width" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a onclick="hepme(event,'htwdthpt');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Height:</a>&nbsp;&nbsp;<input type="text" name="pt_height" id="pt_height" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;">
+  </center>
+  <br>
+  <center>
+    <a onclick="hepme(event,'customcss');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Custom CSS:</a>&nbsp;&nbsp;<input type="text" name="pt_css" id="pt_css" value="" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:175px;text-align:center;">
+  </center>
+  <table border="0" cellspacing="0" cellpadding="5" width="100%" style="color:#FFFFFF;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">
+    <tr>
+      <td align="center">
+        <a onclick="hepme(event,'showcount');" style="cursor:hand;text-decoration:underline;color:#FFFFFF;font-weight:bold;">Show This Many Times:</a>
+        <br><br>
+        <input type="text" name="pt_count" id="pt_count" value="0" style="font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;background-color:#E6E6FA;color:#00008B;width:50px;text-align:center;">
+        <br><br><i>Zero "0" means no limit</i>
+      </td>
+      <td align="center" width="50%">
+        <input type="button" name="ptbtngen" id="ptbtngen" value="Generate Code" onmouseover="this.className='btnover';codegenbtn.powerTip(this,event,'Code will appear in the code area below',220,45,1);" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="ptGenerate();">
+        <br><br>
+        <input type="button" name="ptbtntest" id="ptbtntest" value="Preview powerTip" onmouseover="this.className='btnover';" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="ptTest(event);">
+        <br><br>
+        <input type="button" name="ptbtnclear" id="ptbtnclear" value="Reset Params" onmouseover="this.className='btnover';" onmousedown="this.className='btndn';" onmouseout="this.className='btnup';" onmouseup="this.className='btnover';" class="btnup" onClick="ptClear();">
+      </td>
+    </tr>
+  </table>
+
+
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="instructions" style="position:absolute;left:780px;top:70px;width:140px;height:350px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:0px;">\n');
+  } else {
+    document.write('<div id="instructions" style="position:absolute;left:780px;top:70px;width:140px;height:320px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:0px;">\n');
+  }
+} else {
+  document.write('<div id="instructions" style="position:absolute;left:740px;top:70px;width:140px;height:375px;background-color:#00008B;color:#FFFFFF;border:4px ridge #87CEFA;padding:0px;">\n');
+}
+//-->
+</script>
+  <div id="instructionsPW" style="position:absolute;display:none;width:132px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">
+    <center><b>Pop-Up Window</b></center>
+    <font style="font-size:5px;"><BR><BR></font>&#187; Enter a URL or custom HTML. Select the appropriate radio button.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Enter the width &amp; Height.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Enter the Left &amp; Top if desired.
+    <font style="font-size:5px;"><BR><BR></font>&#187;The checkbox beside Left &amp; Top centers the value.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Check the settings you want applied.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Preview, generate, copy &amp; paste the code.
+  </div>
+  <div id="instructionsPT" style="position:absolute;display:none;width:132px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;padding:3px;">
+    <center><b>powerTIP</b></center>
+    <font style="font-size:5px;"><BR><BR></font>&#187; Enter your custom text or HTML &amp; text.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Enter the width.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Enter the Height.
+    <font style="font-size:5px;"><BR><BR></font>&#187;(Optional) Enter custom CSS;
+    <font style="font-size:5px;"><BR><BR></font>&#187;Specify how many times the powerTip will display.
+    <font style="font-size:5px;"><BR><BR></font>&#187;Preview the powerTip, generate the code, copy &amp; paste to your web page.
+  </div>
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="commonSpecWindow" style="position:absolute;left:30px;top:460px;width:840px;height:510px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;margin:0px;">\n');
+    document.write('<div id="commonSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Common Specification Area</div>\n');
+    document.write('<div id="commonSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  } else {
+    document.write('<div id="commonSpecWindow" style="position:absolute;left:30px;top:430px;width:840px;height:510px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;margin:0px;">\n');
+    document.write('<div id="commonSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Common Specification Area</div>\n');
+    document.write('<div id="commonSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  }
+} else {
+  document.write('<div id="commonSpecWindow" style="position:absolute;left:30px;top:460px;width:840px;height:535px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;margin:0px;">\n');
+  document.write('<div id="commonSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:832px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Common Specification Area</div>\n');
+  document.write('<div id="commonSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+}
+//-->
+</script>
+  </div>
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="instanceSpecWindow" style="position:absolute;left:30px;top:1005px;width:840px;height:500px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+    document.write('<div id="instanceSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Instance Specification Area</div>\n');
+    document.write('<div id="instanceSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  } else {
+    document.write('<div id="instanceSpecWindow" style="position:absolute;left:30px;top:975px;width:840px;height:500px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+    document.write('<div id="instanceSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Instance Specification Area</div>\n');
+    document.write('<div id="instanceSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  }
+} else {
+  document.write('<div id="instanceSpecWindow" style="position:absolute;left:30px;top:1015px;width:840px;height:525px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+  document.write('<div id="instanceSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:832px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Instance Specification Area</div>\n');
+  document.write('<div id="instanceSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+}
+//-->
+</script>
+  </div>
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="automatedSpecWindow" style="display:none;position:absolute;left:35px;top:1540px;width:840px;height:400px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+    document.write('<div id="automatedSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Automated Window Area</div>\n');
+    document.write('<div id="automatedSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  } else {
+    document.write('<div id="automatedSpecWindow" style="display:none;position:absolute;left:35px;top:1510px;width:840px;height:400px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+    document.write('<div id="automatedSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:822px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Automated Window Area</div>\n');
+    document.write('<div id="automatedSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+  }
+} else {
+  document.write('<div id="automatedSpecWindow" style="display:none;position:absolute;left:30px;top:1560px;width:840px;height:425px;background-color:#F5F5F5;color:#000000;border:4px ridge #87CEFA;padding:0px;">\n');
+  document.write('<div id="automatedSpecWindowTitle" style="position:absolute;left:0px;top:0px;width:832px;height:30px;background-color:#00008B;color:#87CEFA;border:4px outset #87CEFA;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;text-align:center;">Automated Window Area</div>\n');
+  document.write('<div id="automatedSpecWindowArea" style="position:absolute;left:0px;top:48px;width:829px;background-color:#F5F5F5;color:#000000;border: none 0px;padding:5px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">Click The Generate Code Button Above\n');
+}
+//-->
+</script>
+  </div>
+</div>
+
+<script language="JavaScript">
+<!--
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  if(navigator.userAgent.indexOf('Mozilla') >= 0) {
+    document.write('<div id="bottom" style="display:block;position:absolute;top:1950px;left:400px;width:200px;height:40px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">&copy; 2007, Jim Melanson</div>\n');
+  } else {
+    document.write('<div id="bottom" style="display:block;position:absolute;top:1920px;left:400px;width:200px;height:40px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">&copy; 2007, Jim Melanson</div>\n');
+  }
+} else {
+  document.write('<div id="bottom" style="display:block;position:absolute;top:1990px;left:400px;width:200px;height:40px;font-family:tahoma,verdana,helvetica,sans-serif;font-size:10pt;">&copy; 2007, Jim Melanson</div>\n');
+}
+//-->
+</script>
+
+</form>
+</body>
+</html>
+

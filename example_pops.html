@@ -1,0 +1,407 @@
+<html><head><title>powerTip &amp; Pop-Up Window Examples</title>
+<script language="JavaScript" src="jspopupobject.js"></script>
+<script language="JavaScript">
+<!--
+
+var photos = new jspopup();
+photos.powerTipCSS('position:absolute;left:500px;top:175px;border:ridge 5px #F8F8FF;background-color:#00008B;color:#F8F8FF;font-family:verdana,helvetica,arial;font-size:10pt;');
+
+var show = new jspopup();
+
+var menus = new jspopup();
+menus.powerTipCSS('position:absolute;left:250px;top:100px;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;padding:10px;border:3px solid #B22222;z-index:100;');
+
+var popwinPT = new jspopup();
+popwinPT.powerTipCSS('border: solid 5px #4682B4;background-color:#EEEEEE;color:#000000;padding:5px;');
+
+
+var dialogues = new jspopup();
+dialogues.powerTipCSS('border:none;background-color:#CDCDCD;z-index:101;');
+
+function showcode(e,marker) {
+  var useWidth = 500;
+  var useHeight = 600;
+  var codeText = '';
+  if(marker == 'pwex1') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin1\');</pre>';
+    codeText += '<i>Default Size, Default Location, No Settings</i>';
+    var useWidth = 500;
+    var useHeight = 110;
+  }
+  else if(marker == 'pwex2') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin2\',500,400);</pre>';
+    codeText += '<i>500 x 400, Default Location, No Settings</i>';
+    var useWidth = 540;
+    var useHeight = 110;
+  }
+  else if(marker == 'pwex3') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin3\',500,400,100,50);</pre>';
+    codeText += '<i>500 x 400, 100 left, 50 top, No Settings</i>';
+    var useWidth = 540;
+    var useHeight = 110;
+  }
+  else if(marker == 'pwex4') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin4\',500,400,100,50,1,0,0,0,0,0,1);</pre>';
+    codeText += '<i>500 x 400, 100 left, 50 top, Scrollbars, Resizable</i>';
+    var useWidth = 660;
+    var useHeight = 110;
+  }
+  else if(marker == 'pwex5') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin5\',500,400,100,50,1,1,0,0,0,0,1);</pre>';
+    codeText += '<i>500 x 400, 100 left, 50 top, Scrollbars, Location, Resizable</i>';
+    var useWidth = 660;
+    var useHeight = 110;
+  }
+  else if(marker == 'pwex6') {
+    codeText = '<br><pre>show.popwin(\'example_glossary.html\',\'sampleWin6\',\'\',\'\',\'default\',\'default\',\'all\');</pre>';
+    codeText += '<i>Default Size, Default Location, All Settings</i>';
+    var useWidth = 700;
+    var useHeight = 110;
+  }
+  if(codeText) {
+    if(navigator.appName.indexOf('Microsoft') < 0) {
+      codeText = '<div id=\"ptclose\" style=\"position:absolute;left:'+(useWidth - 50)+'px;top:3px;color:#808000;font-family:verdana,sans-serif;font-size:8pt;\" onclick=\"document.getElementById(help.nodalId).style.display=\'none\';return false;\">[Close]</div>' + codeText;
+    }
+    popwinPT.powerTip(this,e,codeText,useWidth,useHeight,0);
+  }
+  return false;
+}
+
+
+var aboutWinContent = '';
+if(navigator.appName.indexOf('Microsoft') < 0) {
+  aboutWinContent = '<div id=\"ptclose\" style=\"position:absolute;left:400px;top:3px;color:#E6E6FA;font-family:verdana,sans-serif;font-size:8pt;\" onclick=\"document.getElementById(show.nodalId).style.display=\'none\';return false;\">[Close]</div>';
+}
+aboutWinContent += '<font style="font-family:verdana,helvetica,sans-serif;font-size:16pt;font-weight:bold;">About Box - powerTip Example!</font>\n';
+aboutWinContent += '<hr>\n';
+aboutWinContent += '<table border="0" cellspacing="0" cellpadding="3" width="100%" style="color:#E6E6FA;font-family:cartoon;font-size:12pt;">\n';
+aboutWinContent += '  <tr>\n';
+aboutWinContent += '    <td valign="top">\n';
+aboutWinContent += '      <b>Jim Melanson</b>\n';
+aboutWinContent += '      <BR><BR>\n';
+aboutWinContent += 'Jim has been involved in web development for ten years. The former owner of Perl Services now focuses his energies\n';
+aboutWinContent += 'in other areas but chooses to keep his hands in web development, taking on occassional clients from time to time.\n';
+aboutWinContent += '    </td>\n';
+aboutWinContent += '    <td valign="top">\n';
+aboutWinContent += '     <div id="honkerSpecial" style="left:285; top:50px;width:150px;height:113px;background-color:#FFFF00;color:#6DA1DC;font-family:cartoon;font-size:10pt;border:6px inset #82B3F8;">\n';
+aboutWinContent += '       <img src="jim.jpg" border="0" width="150" height="113" style="margin:0px;">\n';
+aboutWinContent += '       <center><br><b>Phone:</b> xxx-xxx-xxxx\n';
+aboutWinContent += '       <br><br><b>Cell:</b>  xxx-xxx-xxxx\n';
+aboutWinContent += '       <br><br><a href="mailto:james_melanson@yahoo.ca" style="font-weight:bold;color:#FF0000;">E-Mail Me!</a></center><br>\n';
+aboutWinContent += '      </div>\n';
+aboutWinContent += '    </td>\n';
+aboutWinContent += '  </tr>\n';
+aboutWinContent += '</table>\n';
+aboutWinContent += '<center><b>&copy; 2007, Jim Melanson</b></center>\n';
+
+var menuSample1 = '';
+menuSample1 += '<a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson/cww/index.html\',\'cww_calendar\',477,417,\'default\',\'default\',1);" style="text-decoration:none;color:#B22222;">CWW Calendar</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/JSOOP/index.html" target="_blank" style="text-decoration:none;color:#B22222;">JS OOP</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson2/photies/index.html\',\'\',800,600,\'\',\'\',\'all\');return false;" style="text-decoration:none;color:#B22222;">Photos</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson/jimtv/index.html\',\'jimtv\',575,500,200,200);" style="text-decoration:none;color:#B22222;">Jims Videos</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/poetry/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Poetry</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/quotes.html" target="_blank" style="text-decoration:none;color:#B22222;">Quotes</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="#" onmouseover="menus.powerTip(this,event,menuSample1a,250,290,0,\'position:absolute;left:250px;top:100px;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;padding:10px;border:3px solid #B22222;z-index:100;\');" style="text-decoration:none;color:#B22222;">Humour &#187;</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/thoughts_to_live_by.html" target="_blank" style="text-decoration:none;color:#B22222;">Thoughts 2 Live By</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/lists.html" target="_blank" style="text-decoration:none;color:#B22222;">My Lists</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.dancetolivestudio.com/" target="_blank" style="text-decoration:none;color:#B22222;">Salsa!</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/cookbook.html" target="_blank" style="text-decoration:none;color:#B22222;">Cookbook</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/reiki/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Reiki</a><hr style="color:#B22222;">';
+menuSample1 += '<a href="http://www.geocities.com/james_melanson/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Home</a>';
+
+var menuSample1a = '';
+menuSample1a += '<A href="one_liners.html" style="text-decoration:none;color:#B22222;">One Liners...</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="embarassing_moments.html" style="text-decoration:none;color:#B22222;">Life\'s Embarassing Moments</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="hallmark_rejects.html" style="text-decoration:none;color:#B22222;">Hallmark Rejects</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="canadian_confidence.html" style="text-decoration:none;color:#B22222;">Canadian Confidence</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="a_good_cop.html" style="text-decoration:none;color:#B22222;">You\'re a good police officer if...</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="3_little_pigs.html" style="text-decoration:none;color:#B22222;">Three Little Pigs</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="your_new_name.html" style="text-decoration:none;color:#B22222;">Your New Name (Pinky Girdlehead)</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="healthy_level_of_sanity.html" style="text-decoration:none;color:#B22222;">Maintain A Healthy Level Of Sanity</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="not_say_to_a_cop.html" style="text-decoration:none;color:#B22222;">What not to say to a cop</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="revenge_of_the_blondes.html" style="text-decoration:none;color:#B22222;">Revenge Of The Blondes</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="the_receptionist.html" style="text-decoration:none;color:#B22222;">The Receptionist</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="friendship_prayer.html" style="text-decoration:none;color:#B22222;">Friendship Prayer</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="most_powerful_word.html" style="text-decoration:none;color:#B22222;">The Most Powerful Word?</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="heart_warming_story.html" style="text-decoration:none;color:#B22222;">A Truly Heart Warming Story...</a><hr style="color:#B22222;">';
+menuSample1a += '<A href="buttons_stickers.html" style="text-decoration:none;color:#B22222;">Buttons & Stickers</a><hr style="color:#B22222;">';
+
+var menuSample2 = '';
+menuSample2 += '<div id="ms2a" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson/cww/index.html\',\'cww_calendar\',477,417,\'default\',\'default\',1);" style="text-decoration:none;color:#B22222;">CWW Calendar</a></div>';
+menuSample2 += '<div id="ms2b" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/JSOOP/index.html" target="_blank" style="text-decoration:none;color:#B22222;">JS OOP</a></div>';
+menuSample2 += '<div id="ms2c" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson2/photies/index.html\',\'\',800,600,\'\',\'\',\'all\');return false;" style="text-decoration:none;color:#B22222;">Photos</a></div>';
+menuSample2 += '<div id="ms2d" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="#" onclick="menus.popwin(\'http://www.geocities.com/james_melanson/jimtv/index.html\',\'jimtv\',575,500,200,200);" style="text-decoration:none;color:#B22222;">Jims Videos</a></div>';
+menuSample2 += '<div id="ms2e" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/poetry/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Poetry</a></div>';
+menuSample2 += '<div id="ms2f" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/quotes.html" target="_blank" style="text-decoration:none;color:#B22222;">Quotes</a></div>';
+menuSample2 += '<div id="ms2g" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="#" onmouseover="menus.powerTip(this,event,menuSample2a,250,290,0,\'position:absolute;left:250px;top:100px;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;padding:10px;border:0px none;z-index:100;margin:0px;padding:0px;\');" style="text-decoration:none;color:#B22222;">Humour &#187;</a></div>';
+menuSample2 += '<div id="ms2h" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/thoughts_to_live_by.html" target="_blank" style="text-decoration:none;color:#B22222;">Thoughts 2 Live By</a></div>';
+menuSample2 += '<div id="ms2i" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/lists.html" target="_blank" style="text-decoration:none;color:#B22222;">My Lists</a></div>';
+menuSample2 += '<div id="ms2j" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.dancetolivestudio.com/" target="_blank" style="text-decoration:none;color:#B22222;">Salsa!</a></div>';
+menuSample2 += '<div id="ms2k" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/cookbook.html" target="_blank" style="text-decoration:none;color:#B22222;">Cookbook</a></div>';
+menuSample2 += '<div id="ms2l" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/reiki/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Reiki</a></div>';
+menuSample2 += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:140px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><a href="http://www.geocities.com/james_melanson/index.html" target="_blank" style="text-decoration:none;color:#B22222;">Home</a></div>';
+
+var menuSample2a = '';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="one_liners.html" style="text-decoration:none;color:#B22222;">One Liners...</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="embarassing_moments.html" style="text-decoration:none;color:#B22222;">Life\'s Embarassing Moments</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="hallmark_rejects.html" style="text-decoration:none;color:#B22222;">Hallmark Rejects</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="canadian_confidence.html" style="text-decoration:none;color:#B22222;">Canadian Confidence</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="a_good_cop.html" style="text-decoration:none;color:#B22222;">You\'re a good police officer if...</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="3_little_pigs.html" style="text-decoration:none;color:#B22222;">Three Little Pigs</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="your_new_name.html" style="text-decoration:none;color:#B22222;">Your New Name (Pinky Girdlehead)</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="healthy_level_of_sanity.html" style="text-decoration:none;color:#B22222;">Maintain A Healthy Level Of Sanity</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="not_say_to_a_cop.html" style="text-decoration:none;color:#B22222;">What not to say to a cop</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="revenge_of_the_blondes.html" style="text-decoration:none;color:#B22222;">Revenge Of The Blondes</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="the_receptionist.html" style="text-decoration:none;color:#B22222;">The Receptionist</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="friendship_prayer.html" style="text-decoration:none;color:#B22222;">Friendship Prayer</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="most_powerful_word.html" style="text-decoration:none;color:#B22222;">The Most Powerful Word?</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="heart_warming_story.html" style="text-decoration:none;color:#B22222;">A Truly Heart Warming Story...</a></div>';
+menuSample2a += '<div id="ms2m" style="padding:3px;height:12px;font-weight:bold;width:250px;border:5px outset #B22222;background-color:#FFE4E1;color:#CD5C5C;font-family:verdana,sans-serif;font-size:8pt;line-height:.5em;"><A href="buttons_stickers.html" style="text-decoration:none;color:#B22222;">Buttons & Stickers</a></div>';
+
+
+
+function showCustomAlert(alertText) {
+  var customAlert = '';
+  customAlert += '<div id="calertbanner" style="position:absolute;top:0px;left:0px;width:250px;height:20px;border-top: 2px outset #F5F5F5;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:0px none;font-family:arial,sans-serif;font-size:8pt;font-weight:bold;background-color:navy;color:#FFFFFF;">&nbsp;&nbsp;Danger Will Robinson!</div>\n';
+  customAlert += '<div id="calerttext" style="position:absolute;top:20px;left:0px;width:250px;height:60px;border-top: 0px none;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:2px outset #F5F5F5;font-family:arial,sans-serif;font-size:10pt;font-weight:bold;background-color:#CDCDCD;color:#000000;">\n';
+  customAlert += '<table border="0" cellspacing="0" cellpadding="6" width="100%">\n';
+  customAlert += '  <tr>\n';
+  customAlert += '    <td align="center">\n';
+  customAlert += '     '+alertText+'\n';
+  customAlert += '    </td>\n';
+  customAlert += '    <form name="thisAlertFrm1">\n';
+  customAlert += '    <td>\n';
+  customAlert += '      <input type="button" name="thisAlertBtn1" value="O-TAY!" style="width:80px;">\n';
+  customAlert += '    </td>\n';
+  customAlert += '    </form>\n';
+  customAlert += '  </tr>\n';
+  customAlert += '</table>\n';
+  customAlert += '</div>\n';
+  return customAlert;
+}
+
+var confirmationDialogue = '';
+confirmationDialogue += '<div id="calertbanner" style="position:absolute;top:0px;left:0px;width:330px;height:20px;border-top: 2px outset #F5F5F5;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:0px none;font-family:arial,sans-serif;font-size:8pt;font-weight:bold;background-color:navy;color:#FFFFFF;">&nbsp;&nbsp;Please make a decision...</div>\n';
+confirmationDialogue += '<div id="calerttext" style="position:absolute;top:20px;left:0px;width:330px;height:100px;border-top: 0px none;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:2px outset #F5F5F5;font-family:arial,sans-serif;font-size:10pt;font-weight:bold;background-color:#CDCDCD;color:#000000;">\n';
+confirmationDialogue += '<br><table border="0" cellspacing="0" cellpadding="6" width="100%">\n';
+confirmationDialogue += '  <tr>\n';
+confirmationDialogue += '    <td colspan="2" align="center">\n';
+confirmationDialogue += '      <b>Do you want to poop or get off the pot?</b>\n';
+confirmationDialogue += '    </td>\n';
+confirmationDialogue += '  </tr>\n';
+confirmationDialogue += '  <tr>\n';
+confirmationDialogue += '    <form name="thisConfirmFrm1">\n';
+confirmationDialogue += '    <td align="center" width="50%">\n';
+confirmationDialogue += '      <input type="button" name="thisConfirmBtn1" value="Poop" style="width:80px;" onclick="window.alert(\'You choose option #1\');">\n';
+confirmationDialogue += '    </td>\n';
+confirmationDialogue += '    <td align="center" width="50%">\n';
+confirmationDialogue += '      <input type="button" name="thisConfirmBtn2" value="Get Off" style="width:80px;" onclick="window.alert(\'You chose option #2\');">\n';
+confirmationDialogue += '    </td>\n';
+confirmationDialogue += '    </form>\n';
+confirmationDialogue += '  </tr>\n';
+confirmationDialogue += '</table>\n';
+confirmationDialogue += '</div>\n';
+
+var optionsDialogue = '';
+optionsDialogue += '<div id="calertbanner" style="position:absolute;top:0px;left:0px;width:330px;height:20px;border-top: 2px outset #F5F5F5;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:0px none;font-family:arial,sans-serif;font-size:8pt;font-weight:bold;background-color:navy;color:#FFFFFF;">&nbsp;&nbsp;Life Altering Decision Time...</div>\n';
+optionsDialogue += '<div id="calerttext" style="position:absolute;top:20px;left:0px;width:330px;height:230px;border-top: 0px none;border-left: 2px outset #F5F5F5;border-right: 2px outset #F5F5F5;border-bottom:2px outset #F5F5F5;font-family:arial,sans-serif;font-size:10pt;font-weight:bold;background-color:#CDCDCD;color:#000000;">\n';
+optionsDialogue += '<br><table border="0" cellspacing="0" cellpadding="6" width="100%">\n';
+optionsDialogue += '  <form name="thisConfirmFrm1">\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn1" value="Get Married" style="width:240px;" onclick="window.alert(\'You chose to get married. Congratulations!\');">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn2" value="Go Camping" style="width:240px;" onclick="window.alert(\'You chose to go camping. Congratulations!\');">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn3" value="Climb K2" style="width:240px;" onclick="window.alert(\'You chose to climb K2. Highly recommended. Congratulations!\');">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn3" value="Eat Wheatabix Daily" style="width:240px;" onclick="window.alert(\'You chose to eat Wheatabix daily. A healthy choice. Congratulations!\');">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn3" value="Invest My Money" style="width:240px;" onclick="window.alert(\'BOOOOOOOOORRRRRRIIIIIINNNNNGGGGGGGGGGG!\');">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+optionsDialogue += '  <tr>\n';
+optionsDialogue += '    <td align="center">\n';
+optionsDialogue += '      <input type="button" name="thisOptionsBtn3" value="Fahghetaboutit..." style="width:240px;">\n';
+optionsDialogue += '    </td>\n';
+optionsDialogue += '  </tr>\n';
+
+optionsDialogue += '  </form>\n';
+optionsDialogue += '</table>\n';
+optionsDialogue += '</div>\n';
+
+
+
+var optPhotiesWindow = '';
+optPhotiesWindow += '  <div id="pyn1" style="position:absolute;left:20px;top:20px;border:3px inset #F8F8FF;"><img src="jim.jpg" border="0" width="150" height="113"></div>\n';
+optPhotiesWindow += '  <div id="pyn2" style="position:absolute;left:190px;top:20px;text-align:center;">\n';
+optPhotiesWindow += '    <center><b>Do you want to see my Photos?</b></center><br><br>\n';
+optPhotiesWindow += '    <input type="button" name="py" id="py" value="Yes" class="photiebtnup" onmouseover="this.className=\'photiebtnover\'" onmouseout="this.className=\'photiebtnup\'" onmousedown="this.className=\'photiebtndn\'" onclick="window.location=\'http://www.geocities.com/james_melanson2/photies/index.html\';return true;">\n';
+optPhotiesWindow += '    <br><br>\n';
+optPhotiesWindow += '    <input type="button" name="pn" id="pn" value="No" class="photiebtnup" onmouseover="this.className=\'photiebtnover\'" onmouseout="this.className=\'photiebtnup\'" onmousedown="this.className=\'photiebtndn\'" onclick="goPhotosLastChance\(\);">\n';
+optPhotiesWindow += '  </div>\n';
+
+
+
+
+//354   132
+var graphicPowerTip = '<table border="0" background="sqblank_fffcad1.gif" style="width:354px;height:132px;">\n';
+graphicPowerTip += '  <tr>\n';
+graphicPowerTip += '    <td width="10">&nbsp;</td>\n';
+graphicPowerTip += '    <td valign="top">\n';
+graphicPowerTip += '      <div id="gClose" style="position:relative;top:9px;left:284px;font-family:verdana,sans-serif;font-size:8px;cursor:hand;">[Close]</div>\n';
+graphicPowerTip += '      <font style="color:crimson;font-family:tahoma,verdana,helvetica,sans-serif;font-size:16px;font-weight:bold;">powerTip w/Graphics</font>\n';
+graphicPowerTip += '      <br><br>\n';
+graphicPowerTip += '      <font style="color:#000000;font-family:tahoma,verdana,helvetica,sans-serif;font-size:12px;font-weight:bold;">\n';
+graphicPowerTip += '      powerTip offers LOTS of felixibility so that you can easily and quickly enhance YOUR site, YOUR way!\n';
+graphicPowerTip += '      <br><br>You can even to a powerTip with a graphic for a background!\n';
+graphicPowerTip += '      </font>\n';
+graphicPowerTip += '    </td>\n';
+graphicPowerTip += '    <td width="10">&nbsp;</td>\n';
+graphicPowerTip += '  </tr>\n';
+graphicPowerTip += '</table>';
+
+
+
+function goPhotosLastChance() {
+  if(window.confirm('Are you absolutely SURE you dont want to see my photos???')) {
+    window.location='http://www.geocities.com/james_melanson2/photies/index.html';
+  }
+}
+
+
+//-->
+</script>
+<style type="text/css">
+<!--
+body {background-color:#FFFFFF;color:#333333;font-family:verdana,arial,sans-serif;font-size:14px;}
+a {color:#000000}
+a:hover {color:#822222;}
+
+
+.photiebtnup {
+  background-color: #87CEFA;
+  color: #00008B;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+.photiebtnover {
+  background-color: #FFFCAD;
+  color: #FF0000;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+.photiebtndn {
+  background-color: #FF0000;
+  color: #FFFCAD;
+  width: 140px;
+  border: 4px outset #191970;
+  font-weight: bold;
+}
+
+//-->
+</style>
+</head>
+<body>
+
+<div id="powerTips1" style="relative:relative;margin:20px;width:400px;padding:10px;border:solid 10px #4682B4;background-color:#EEEEEE;font-family:verdana,helvetica,sans-serif;font-size:10pt;">
+<center><b>Standard powerTip Examples</b>
+<br><br>
+<a onmouseover="show.powerTip(this,event,'This is the default tool tip',160,30,0);" style="text-decoration:underline;">Default Tool Tip - onMouseOver</a>
+<br><br>
+<a onclick="show.powerTip(this,event,'This is the default tool tip<br>but only triggered onClick.',160,50,0);" style="text-decoration:underline;">Default Tool Tip - onClick</a>
+<br><br>
+<a onclick="show.powerTip(this,event,graphicPowerTip,354,132,0,'position:absolute;');" style="text-decoration:underline;">Graphic BG Tool Tip - onClick</a>
+<br><br>
+</center>
+</div>
+
+<div id="powerTips2"" style="relative:relative;margin:20px;width:400px;padding:10px;border:solid 10px #4682B4;background-color:#EEEEEE;font-family:verdana,helvetica,sans-serif;font-size:10pt;">
+<center><b>Nifty powerTip Examples</b></center>
+<table border="0" cellspacing="0" cellpadding="10" style="width:100%;font-family:verdana,helvetica,sans-serif;font-size:10pt;color:#000000;">
+  <tr>
+    <td width="50%" valign="top">
+      <center><i>onmouseover/onclick</i></center>
+      <br><br>
+      <a onclick="show.powerTip(this,event,aboutWinContent,430,350,0,'position:absolute;left:500px;top:100px;background-color:#6DA1DC;color:#E6E6FA;font-family:verdana,sans-serif;font-size:10pt;padding:10px;border:3px outset #82B3F8;z-index:100;');" style="text-decoration:underline;">About Box</a>
+      <br><br>
+      <a onclick="menus.powerTip(this,event,menuSample1,140,290,0);" style="text-decoration:underline;">Menu Sample #1</a>
+      <br><br>
+      <a onclick="menus.powerTip(this,event,menuSample2,140,260,0,'position:absolute;left:250px;top:100px;background:transparent;padding:0px;border:0px none;z-index:100;');" style="text-decoration:underline;">Menu Sample #2</a>
+      <br><br>
+      <a onmouseover="photos.powerTip(this,event,optPhotiesWindow,440,160,0)" style="text-decoration:underline;">Photos</a>
+    </td>
+    <td width="50%" valign="top">
+      <center><i>Non-Modal<br>Pseudo Dialogue Box</i></center>
+      <br>
+      <a onclick="dialogues.powerTip(this,event,showCustomAlert('<b>Oh-Mah-Gosh!<br>An Alert!</b>'),250,80,0);" style="text-decoration:underline;">Custom Alert Box</a>
+      <br><br>
+      <a onclick="dialogues.powerTip(this,event,confirmationDialogue,330,120,0);" style="text-decoration:underline;">Custom Confirmation Box</a>
+      <br><br>
+      <a onclick="dialogues.powerTip(this,event,optionsDialogue,330,250,0);" style="text-decoration:underline;">Options Box</a>
+    </td>
+  </tr>
+</table>
+</div>
+
+
+
+
+<div id="popUpWindows" style="relative:relative;margin:20px;width:400px;padding:10px;border:solid 10px #4682B4;background-color:#EEEEEE;font-family:verdana,helvetica,sans-serif;font-size:10pt;">
+<center><b>Pop-Up Window Examples</b></center>
+<center><i>These examples all use the sample Glossary page</i></center>
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin1');" style="font-weight:bold;text-decoration:underline;">Automated Instance:</a>
+<br>&#187;Default Size, Default Location, No Settings&nbsp;[<a href="#" onclick="showcode(event,'pwex1')">Code</a>]
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin2',500,400);" style="font-weight:bold;text-decoration:underline;">Sample #2:</a>
+<br>&#187;500 x 400, Default Location, No Settings&nbsp;[<a href="#" onclick="showcode(event,'pwex2')">Code</a>]
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin3',500,400,100,50);" style="font-weight:bold;text-decoration:underline;">Sample #3:</a>
+<br>&#187;500 x 400, 100 left, 50 top, No Settings&nbsp;[<a href="#" onclick="showcode(event,'pwex3')">Code</a>]
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin4',500,400,100,50,1,0,0,0,0,0,1);" style="font-weight:bold;text-decoration:underline;">Sample #4:</a>
+<br>&#187;500 x 400, 100 left, 50 top, Scrollbars, Resizable&nbsp;[<a href="#" onclick="showcode(event,'pwex4')">Code</a>]
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin5',500,400,100,50,1,1,0,0,0,0,1);" style="font-weight:bold;text-decoration:underline;">Sample #5:</a>
+<br>&#187;500 x 400, 100 left, 50 top, Scrollbars, Location, Resizable&nbsp;[<a href="#" onclick="showcode(event,'pwex5')">Code</a>]
+<br><br>
+
+<a href="#" onclick="show.popwin('example_glossary.html','sampleWin6','','','default','default','all');" style="font-weight:bold;text-decoration:underline;">Sample #6:</a>
+<br>&#187;Default Size, Default Location, All Settings&nbsp;[<a href="#" onclick="showcode(event,'pwex6')">Code</a>]
+<br><br>
+</div>
+
+
+<div id="bottomlinks" style="position:relative;">
+<center>
+[<a href="#" onclick="show.popwin('example_pops.txt','textWin',800,600,'default','default',1,0,0,0,0,0,1);" content-type="text/plain" style="font-size:10px;">Click Here To See Page Source Code</a>] &nbsp;&nbsp;&#149;&nbsp;&nbsp; [<a href="#" onclick="window.close();return false;" style="font-size:10px;">Close Window</a>]
+</center>
+</div>
+<BR>
+
+</body></html>
+
+
+

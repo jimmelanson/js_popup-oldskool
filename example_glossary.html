@@ -1,0 +1,128 @@
+<html><head><title>Glossary Example Using powerTip</title>
+<script language="JavaScript" src="jspopupobject.js"></script>
+<script language="JavaScript">
+<!--
+var g = new jspopup();
+g.powerTipCSS('border:4px ridge #696969;background-color:f5f5f5;color:808080;padding:5px;font-family:tahoma,verdana,sans-serif;font-size:10pt;');
+
+function showspecial(e,marker) {
+  var useWidth = 100;
+  var useHeight = 100;
+  var specialText = '';
+  if(marker == 'rb') {
+    specialText = '<b>R&B:</b><hr>';
+    specialText += 'R&B is a term used to describe two seperate forms of music.<br>';
+    specialText += '<ul><li>Rhythm and blues a style of music closely related to the blues, with its<br>';
+    specialText += 'roots in the 1940s. Closely tied to rock \'n\' roll.<br>';
+    specialText += '<li>R&B \(pop\) a contemporary style of pop music, with its roots in the 1980s.</ul><br>';
+    var useWidth = 500;
+    var useHeight = 160;
+  }
+  else if(marker == 'boozoo') {
+    specialText = '<b>Boozoo Chavis:</b><hr>';
+    specialText += 'Boozoo Chavis \(born 23 October 1930 in Lake Charles, LA and died 5 May 2001<br>';
+    specialText += 'in Austin, Texas\) was a zydeco musician - a form of Cajun music. He was<br>';
+    specialText += 'active from 1954 until his death during which time he largely sang and played<br>';
+    specialText += 'the accordion. Mr Boozoo was also a prolific writer of zydeco songs. Many of<br>';
+    specialText += 'his songs have become standards of the zydeco repertoire, in spite of<br>';
+    specialText += '\[or because of?\] their generally idiosyncratic and quirky construction and<br>';
+    specialText += 'subject matter. "If it\'s wrong, do it wrong, with me," he would tell his band.<br>';
+    specialText += '\"If I\'m wrong, you wrong, too!\"<br>';
+    var useWidth = 500;
+    var useHeight = 190;
+  }
+  else if(marker == 'cliftonchenier') {
+    specialText = '<b>Clifton Chenier:</b><hr>';
+    specialText += 'Clifton Chenier \(June 26, 1925 - December 12, 1987\) a native of Opelousas,<br>';
+    specialText += 'Louisiana was an eminent performer of zydeco music, a blend of Cajun and<br>';
+    specialText += 'Creole music with R&B, jazz, and blues influences. He played the accordion.<br>';
+    var useWidth = 500;
+    var useHeight = 110;
+  }
+  else if(marker == 'backbeat') {
+    specialText = '<b>Back beat:</b><hr>';
+    specialText += 'In music a back beat \(also backbeat, or up-beat\) is any of the even \"beats\"<br>';
+    specialText += '\(quarter beats 2 and 4\) as opposed to the odd downbeats, \(quarter beats 1 and 3\).<br>';
+    specialText += 'That is, counting out a simple 4/4 rhythm, 1 2 3 4, the 1 and 3 are down beats and<br>';
+    specialText += 'the 2 and 4 are upbeats. The up and down refer to movements of the conductor\'s baton.<br>';
+    var useWidth = 500;
+    var useHeight = 140;
+  }
+  else if(marker == 'amede') {
+    specialText = '<b>Amédé Ardoin</b><hr>';
+    specialText += 'Amédé Ardoin \(March 11, 1898—1941 or 1950\) was a black creole Louisiana<br>';
+    specialText += 'musician, known for his high singing voice and virtuosity on the ten-button \(diatonic<br>';
+    specialText += 'or \"Cajun\"\) accordion. He is credited by Louisiana music scholars with laying the<br>';
+    specialText += 'groundwork for Cajun music in the early 20th century.<br>';
+    var useWidth = 500;
+    var useHeight = 120;
+  }
+  if(specialText) {
+    if(navigator.appName.indexOf('Microsoft') < 0) {
+      specialText = '<div id=\"ptclose\" style=\"position:absolute;left:'+(useWidth - 50)+'px;top:3px;color:#808000;font-family:verdana,sans-serif;font-size:8pt;\" onclick=\"document.getElementById(help.nodalId).style.display=\'none\';return false;\">[Close]</div>' + specialText;
+    }
+    g.powerTip(this,e,specialText,useWidth,useHeight,0);
+  }
+  return false;
+}
+
+//-->
+</script>
+<style type="text/css">
+<!--
+body {background-color:#FFFFFF;color:#333333;font-family:verdana,arial,sans-serif;font-size:14px;}
+a {color:#000000;font-weight:bold;}
+a:hover {color:#822222;}
+
+//-->
+</style>
+</head>
+<body>
+
+<div id="xGloassary" style="relative:absolute;margin:20px;padding:10px;border:solid 10px #6B8E23;background-color:#EEEEEE;">
+
+
+<font style="color:#A9A9A9;font-family:verdana,helvetica,sans-serif;font-size:36px;font-weight:bold;">Zydeco</font>&nbsp;&nbsp;&nbsp;<font style="color:#A9A9A9;font-family:verdana,helvetica,sans-serif;font-size:26px;">[zahy-di-koh] :</font>
+<hr size="8" style="background-color:#A9A9A9;">
+
+Zydeco is a form of <a href="#" onmouseover="g.powerTip(this,event,'<b>Folk Music:</b><hr>Folk music, in the original sense of the term, is music by and for the common people.',400,90,0);">folk music</a>,
+ originated in the beginning of the 20th century among the <a href="#" onmouseover="g.powerTip(this,event,'<b>Francophone:</b><hr>A Francophone is a person who is able to speak the French language.',220,90,0);">Francophone</a>
+ <a href="#" onmouseover="g.powerTip(this,event,'<b>Louisiana Creole People:</b><hr>Louisiana Creole refers to people of any race or mixture thereof who are descended from settlers in colonial French Louisiana before it became part of the United States in 1803 with the Louisiana Purchase, or to the culture and Creole cuisine typical of these people.',400,140,0);">Creole peoples</a> of south-west <a href="#" onmouseover="g.powerTip(this,event,'<b>Louisiana:</b><hr>Louisiana is a Southern state of the United States of America. The capital is Baton Rouge and the largest city is New Orleans.',400,90,0);">Louisiana</a> and influenced by the music of the French-speaking <a href="#" onmouseover="g.powerTip(this,event,'<b>Cajuns:</b><hr>The Cajuns are an ethnic group mainly living in Louisiana, consisting of the descendants of Acadian exiles and other peoples with whom the Acadians eventually intermarried on the semitropical frontier, including Louisianians of Spanish, German, and French Creole heritage.',400,140,0);">Cajuns</a>. It is heavily
+<a href="#" onmouseover="g.powerTip(this,event,'<b>Syncopation:</b><hr>In music, syncopation is the stressing of a normally unstressed beat in a bar or the failure to sound a tone on an accented beat.',400,90,0);">syncopated</a> (<a href="#" onmouseover="showspecial(event,'backbeat');">back-beat</a>), usually fast-tempo, and dominated by the button or piano <a href="#" onmouseover="g.powerTip(this,event,'<b>Accordian:</b><hr>An accordion is a musical instrument of the handheld bellows-driven free reed aerophone family, sometimes referred to as squeezeboxes.',400,100,0);">accordion</a> and a form of
+a <a href="#" onmouseover="g.powerTip(this,event,'<b>Washboard:</b><hr>A washboard is a tool designed for hand washing clothing. With mechanized cleaning of clothing becoming more common by the end of the 20th century, the washboard has become better known for its originally subsidiary use as a musical instrument.',400,120,0);">washboard</a> known as a rub-board or <a href="#" onmouseover="g.powerTip(this,event,'<b>Vest Frottoir:</b><hr>A vest frottoir is an instrument used in Zydeco music. It is usually made from pressed, corrugated aluminium and is worn over the shoulders. It is played as a rhythm instrument by stroking either bottle openers or spoons down it.',400,120,0);">vest frottoir</a>. Originating in Africa, the vest frottoir was introduced
+to Louisiana in the 1930s. Other instruments include the <a href="#" onmouseover="g.powerTip(this,event,'<b>Fiddle:</b><hr>The term fiddle refers to a violin when used in folk music. It is also a colloquial term for the instrument used by players in all genres, including classical music. Fiddle playing, or fiddling, is a style of music.',400,120,0);">fiddle</a>, <a href="#" onmouseover="g.powerTip(this,event,'<b>Guitar:</b><hr>The guitar is a musical instrument, used in a wide variety of musical styles, and is also widely known as a solo classical instrument. It is most recognized in popular culture as the primary instrument in blues, country, flamenco, pop, and rock music. The guitar usually has six strings, but four-, seven-, eight-, ten-, and Twelve string guitars also exist. Guitars are made and repaired by luthiers.',400,180,0);">guitar</a>, <a href="#" onmouseover="g.powerTip(this,event,'<b>Bass Guitar:</b><hr>The electric bass guitar \(also called an electric bass or a bass\) is an electrically-amplified string instrument played with the fingers by plucking or slapping, or by using a pick.',400,100,0);">bass guitar</a> and <a href="#" onmouseover="g.powerTip(this,event,'<b>Drums:</b><hr>A drum is a musical instrument in the percussion family, technically classified as a membranophone.',400,90,0);">drums</a>.
+<BR><BR>
+Zydeco's rural beginnings and the prevailing economic conditions at its inception are reflected in the song
+titles, lyrics, and bluesy vocals. The music arose as a synthesis of <a href="#" onmouseover="g.powerTip(this,event,'<b>Cajun Music:</b><hr>Cajun music, an emblematic music of Louisiana, is rooted in the ballads of the French-speaking Catholics of Canada. Cajun music is often mentioned in tandem with the Creole-based, Cajun-influenced Zydeco form, both of Acadiana origin.',400,120,0);">traditional Cajun music</a> with African-American
+traditions that also underpinned <a href="#" onmouseover="showspecial(event,'rb');">R&B</a> and <a href="#" onmouseover="g.powerTip(this,event,'<b>Blues:</b><hr>The blues is a vocal and instrumental form of music based on the use of the blue notes and a repetitive pattern that typically follows a twelve-bar structure.',400,100,0);">blues</a>. It was known as "la-la"; "zodico" and various other names.
+<a href="#" onmouseover="showspecial(event,'amede');">Amédé Ardoin</a> made the first recordings of what later became known as zydeco in 1928.
+<BR><BR>
+The music was brought to the fringes of the American mainstream in the mid-1950s, with the popularity of
+<a href="#" onmouseover="showspecial(event,'cliftonchenier');">Clifton Chenier</a> and <a href="#" onmouseover="showspecial(event,'boozoo');">Boozoo Chavis</a>. In 1954, Boozoo Chavis recorded "Paper in My Shoe". This is considered
+to be the first modern zydeco recording, though the term "zydeco" was not in use yet (see 1954 in music).
+After Chavis left the music business, <a href="#" onmouseover="showspecial(event,'cliftonchenier');">Clifton Chenier</a> became the first major zydeco star and also led to
+the invention of the word zydeco in 1965. One of his hits was "Les Haricots Sont Pas Salés" (The Snap Beans
+Aren't Salty — a reference to the singer being too poor to afford salt pork to season the beans) and he said
+that "Zydeco" was a corruption of les haricots (<a href="#" onmouseover="g.powerTip(this,event,'<b>French:</b><hr>French is a Romance language spoken originally in France, Belgium, and Switzerland, and today by about 175 million people around the world as a mother tongue or fluent second language, with significant populations in 54 countries.',400,120,0);">French</a> for the beans). This may have been his little joke
+as the term (along with variants such as "zodico") was used earlier to refer to African dance-forms.
+<BR><BR>
+In the mid-1980s, <a href="#" onmouseover="g.powerTip(this,event,'<b>Rockin\' Sidney:</b><hr>Rockin\' Sidney Simien \(April 9, 1938–February 25, 1998\) was an American R&B, Zydeco, and soul musician who began recording in the late 1950s and continued performing until his death.',400,100,0);">Rockin' Sidney</a> briefly re-popularized zydeco music nationwide with hit remake of the
+classic tune "My Toot Toot". This led to the resurgence of Zydeco artists, and spawned a new crop of
+innovators. Young zydeco musicians, such as Chubby Carrier and <a href="#" onmouseover="g.powerTip(this,event,'<b>Rosie Ledet:</b><hr>Rosie Ledet is a Creole Zydeco vocalist and accordion player. She was born Mary Rosezla Bellard in the small town of Church Point, Acadia Parish, Louisiana. One account regarding the start of her musical career relates that after her husband would leave for work, she would sneak out his accordion, and learn a song. The story continues that when he heard her play, he stepped aside, allowing her the spotlight, and became her accompanist on the bass guitar.',400,200,0);">Rosie Ledet</a> began emerging in the early
+1990s. <a href="#" onmouseover="g.powerTip(this,event,'<b>Chris Ardoin:</b><hr>Chris Ardoin \(born 1981 in Louisiana\) is a nouveau zydeco \(a genre in the Cajun tradition\) accordionist. He was a child prodigy belonging to a musical dynasty \(his father was Lawrence Ardoin and his grandfather, Alphonse Ardoin\). At just 13 he formed the Double Clutchin\' zydeco band.',400,140,0);">Chris Ardoin</a>, <a href="#" onmouseover="g.powerTip(this,event,'<b>Beau Jocque:</b><hr>Beau Jocque \(real name: Andrus J. Espre\) \(November 1, 1953 - September 10, 1999\) was an American zydeco musician active in the 1990\'s.',400,100,0);">Beau Jocque</a>, Keith Frank, and <a href="#" onmouseover="g.powerTip(this,event,'<b>Zydeco Force:</b><hr>Zydeco Force is an American zydeco band from Opelousas, Louisiana.',400,80,0);">Zydeco Force</a> added a new twist to traditional Zydeco
+by tying the whole sound to the bass drum rhythm to accentuate or <a href="#" onmouseover="g.powerTip(this,event,'<b>Syncopation:</b><hr>In music, syncopation is the stressing of a normally unstressed beat in a bar or the failure to sound a tone on an accented beat.',400,90,0);">syncopate</a> the backbeat even more. This
+style is sometimes called "double clutching."
+<BR><BR>
+
+</div>
+
+<div id="bottomlinks" style="position:relative;">
+<center>
+[<a href="#" onclick="g.popwin('example_glossary.txt','textWin',800,600,'default','default',1,0,0,0,0,0,1);" content-type="text/plain" style="font-size:10px;">Click Here To See Page Source Code</a>] &nbsp;&nbsp;&#149;&nbsp;&nbsp; [<a href="#" onclick="window.close();return false;" style="font-size:10px;">Close Window</a>]
+</center>
+</div>
+<BR>
+</body></html>
+
+
+
